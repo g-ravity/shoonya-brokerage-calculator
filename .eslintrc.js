@@ -60,6 +60,7 @@ module.exports = {
 		'@typescript-eslint/no-empty-function': 'warn',
 		'react/no-array-index-key': 'warn',
 		'no-nested-ternary': 'warn',
+		'import/prefer-default-export': 'off',
 		'react/forbid-prop-types': 'warn',
 		'jsx-a11y/click-events-have-key-events': 'off',
 		'jsx-a11y/no-static-element-interactions': 'off',

@@ -1,0 +1,35 @@
+{
+  "name": "shoonya-brokerage-server",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "clean": "./node_modules/.bin/rimraf coverage build tmp",
+    "build": "tsc -p tsconfig.release.json",
+    "watch:ts": "tsc -w -p tsconfig.release.json",
+    "watch:node": "nodemon -r dotenv-safe/config --delay 100ms build/src/index.js",
+    "start": "node -r dotenv-safe/config build/src/index.js",
+    "start:qa": "concurrently -r \"npm run watch:ts\" \"npm run watch:node\""
+  },
+  "dependencies": {
+    "@awaitjs/express": "^0.9.0",
+    "connect-timeout": "^1.9.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "puppeteer": "^12.0.1",
+    "waait": "^1.0.5"
+  },
+  "devDependencies": {
+    "@types/connect-timeout": "^0.0.35",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.11.12",
+    "concurrently": "^6.4.0",
+    "dotenv-safe": "^8.2.0",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.4.0",
+    "tslib": "^2.3.1",
+    "tsutils": "^3.21.0",
+    "typescript": "^4.5.2"
+  }
+}
