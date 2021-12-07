@@ -22,7 +22,7 @@ const App = () => {
 	const onLoginSubmit = async (values: ILoginForm) => {
 		setLoading(true);
 
-		const data = await request<{ accessToken?: string }>('http://localhost:8080/api/shoonya-login', {
+		const { data } = await request<{ accessToken?: string }>('http://localhost:8080/api/shoonya-login', {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json',
@@ -43,7 +43,7 @@ const App = () => {
 	useEffect(() => {
 		if (isNotEmptyObject(authDetails)) navigate('/back-office');
 		else setLoading(false);
-	}, []);
+	}, [authDetails]);
 
 	return (
 		<Box>

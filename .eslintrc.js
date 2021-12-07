@@ -69,6 +69,7 @@ module.exports = {
 		'jsx-a11y/anchor-is-valid': 'off',
 		'react/static-property-placement': 'off',
 		'react/state-in-constructor': 'off',
+		camelcase: 'warn',
 		'prettier/prettier': [
 			'error',
 			{
