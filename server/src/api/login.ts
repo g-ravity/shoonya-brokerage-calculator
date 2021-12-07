@@ -10,7 +10,7 @@ interface ILoginParams {
 
 export const loginAndFetchMetaData = async ({ userId, pan, password }: ILoginParams): Promise<{ accessToken?: string }> => {
 	try {
-		const browser = await puppeteer.launch({ headless: false });
+		const browser = await puppeteer.launch();
 		const page = await browser.newPage();
 		await page.goto('https://shoonya.finvasia.com/#/', {
 			waitUntil: 'domcontentloaded',

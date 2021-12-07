@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
 import { request } from '../utils/fetchWrapper';
 import { Loader } from './Loader';
 import { Box } from '../styledComponents/Box';
@@ -18,23 +19,36 @@ const App = () => {
 	const [loading, setLoading] = useState<boolean>(true);
 	const [authDetails, handleAuthChange] = useAuthorizedState();
 
+	const { addToast } = useToasts();
+
 	const navigate = useNavigate();
 	const onLoginSubmit = async (values: ILoginForm) => {
 		setLoading(true);
 
-		const { data } = await request<{ accessToken?: string }>('http://localhost:8080/api/shoonya-login', {
-			method: 'POST',
-			headers: {
-				'content-type': 'application/json',
-			},
-			body: JSON.stringify(values),
-		});
+		try {
+			const { data, status } = await request<{ accessToken?: string }>('http://localhost:8080/api/shoonya-login', {
+				method: 'POST',
+				headers: {
+					'content-type': 'application/json',
+				},
+				body: JSON.stringify(values),
+			});
 
-		if (data.accessToken) {
-			localStorage.setItem('shoonyaId', values.userId);
-			localStorage.setItem('shoonyaToken', data.accessToken);
+			if (status === 200) {
+				if (data.accessToken) {
+					localStorage.setItem('shoonyaId', values.userId);
+					localStorage.setItem('shoonyaToken', data.accessToken);
 
-			handleAuthChange({ shoonyaId: values.userId, shoonyaToken: data.accessToken });
+					addToast('Logged in successfully!', { appearance: 'success' });
+					handleAuthChange({ shoonyaId: values.userId, shoonyaToken: data.accessToken });
+				}
+			} else {
+				setLoading(false);
+				addToast('Failed to Login. Please try again!', { appearance: 'error' });
+			}
+		} catch (err) {
+			setLoading(false);
+			addToast('Failed to Login. Please try again!', { appearance: 'error' });
 		}
 
 		navigate('/back-office');

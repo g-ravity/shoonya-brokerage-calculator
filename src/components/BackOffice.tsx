@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
 import useAuthorizedState from '../hooks/useAuthorizedState';
 import { Box } from '../styledComponents/Box';
 import { isNotEmptyObject } from '../utils/commonHelpers';
@@ -10,6 +11,7 @@ const BackOffice = () => {
 	const [loading, setLoading] = useState<boolean>(true);
 	const [authDetails, handleAuthChange] = useAuthorizedState();
 	const navigate = useNavigate();
+	const { addToast } = useToasts();
 
 	useEffect(() => {
 		if (!isNotEmptyObject(authDetails)) navigate('/');
@@ -26,6 +28,7 @@ const BackOffice = () => {
 		});
 
 		if (status === 401) {
+			addToast('Authorization failed. Please login again!', { appearance: 'error' });
 			localStorage.clear();
 			handleAuthChange({});
 		}
