@@ -19,11 +19,8 @@ const BackOffice = () => {
 	}, [authDetails]);
 
 	const fetchOrderBook = async () => {
-		const { data, status } = await request('http://localhost:8080/api/shoonya-orderbook', {
+		const { data, status } = await request('/shoonya-orderbook', {
 			method: 'POST',
-			headers: {
-				'content-type': 'application/json',
-			},
 			body: JSON.stringify({ uid: authDetails.shoonyaId, jKey: authDetails.shoonyaToken }),
 		});
 

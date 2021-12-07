@@ -26,11 +26,8 @@ const App = () => {
 		setLoading(true);
 
 		try {
-			const { data, status } = await request<{ accessToken?: string }>('http://localhost:8080/api/shoonya-login', {
+			const { data, status } = await request<{ accessToken?: string }>('/shoonya-login', {
 				method: 'POST',
-				headers: {
-					'content-type': 'application/json',
-				},
 				body: JSON.stringify(values),
 			});
 
