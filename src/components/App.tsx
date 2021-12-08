@@ -8,6 +8,7 @@ import { Loader } from './Loader';
 import { Box } from '../styledComponents/Box';
 import useAuthorizedState from '../hooks/useAuthorizedState';
 import { isNotEmptyObject } from '../utils/commonHelpers';
+import { Button } from '../styledComponents/Button';
 
 interface ILoginForm {
 	userId: string;
@@ -66,7 +67,7 @@ const App = () => {
 									<Input name="userId" placeholder="User ID" onChange={handleChange} value={values.userId} required />
 									<Input name="password" placeholder="Password" type="password" onChange={handleChange} value={values.password} required />
 									<Input name="pan" placeholder="PAN" type="password" onChange={handleChange} value={values.pan} required />
-									<StyledButton type="submit">Login</StyledButton>
+									<Button type="submit">Login</Button>
 								</form>
 							</div>
 						)}
@@ -103,19 +104,6 @@ const Input = styled.input`
 		color: #e0a100;
 		opacity: 1;
 	}
-`;
-
-const StyledButton = styled.button`
-	background: #ffffff;
-	color: #000000;
-	border-radius: 5px;
-	padding: 10px;
-	cursor: pointer;
-	border: none;
-	font-family: 'Readex Pro', sans-serif;
-	width: 100px;
-	font-size: 1.1rem;
-	margin-top: 10px;
 `;
 
 export default App;

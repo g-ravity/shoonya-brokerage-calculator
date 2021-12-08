@@ -1,8 +1,10 @@
+import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import useAuthorizedState from '../hooks/useAuthorizedState';
 import { Box } from '../styledComponents/Box';
+import { Button } from '../styledComponents/Button';
 import { isNotEmptyObject } from '../utils/commonHelpers';
 import { request } from '../utils/fetchWrapper';
 import { Loader } from './Loader';
@@ -36,16 +38,29 @@ const BackOffice = () => {
 			{loading ? (
 				<Loader />
 			) : (
-				<>
+				<div style={{ width: '60%', textAlign: 'center' }}>
 					<h3>Welcome to Shoonya Back Office</h3>
-					<button type="button" onClick={fetchOrderBook}>
-						OrderBook
-					</button>
-					<button type="button">TradeBook</button>
-				</>
+					<ButtonContainer>
+						<Link to="/brokerage-calculator">
+							<Button>Calculator</Button>
+						</Link>
+						<Link to="/graphs">
+							<Button>Graphs</Button>
+						</Link>
+						<Link to="/analytics">
+							<Button>Analytics</Button>
+						</Link>
+					</ButtonContainer>
+				</div>
 			)}
 		</Box>
 	);
 };
+
+const ButtonContainer = styled.div`
+	display: flex;
+	justify-content: space-around;
+	margin: 30px 0;
+`;
 
 export default BackOffice;
