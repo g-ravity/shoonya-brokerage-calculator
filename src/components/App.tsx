@@ -26,22 +26,17 @@ const App = () => {
 		setLoading(true);
 
 		try {
-			const { data, status } = await request<{ accessToken?: string }>('/shoonya-login', {
+			const data = await request<{ accessToken?: string }>('/shoonya-login', {
 				method: 'POST',
 				body: JSON.stringify(values),
 			});
 
-			if (status === 200) {
-				if (data.accessToken) {
-					localStorage.setItem('shoonyaId', values.userId);
-					localStorage.setItem('shoonyaToken', data.accessToken);
+			if (data.accessToken) {
+				localStorage.setItem('shoonyaId', values.userId);
+				localStorage.setItem('shoonyaToken', data.accessToken);
 
-					addToast('Logged in successfully!', { appearance: 'success' });
-					handleAuthChange({ shoonyaId: values.userId, shoonyaToken: data.accessToken });
-				}
-			} else {
-				setLoading(false);
-				addToast('Failed to Login. Please try again!', { appearance: 'error' });
+				addToast('Logged in successfully!', { appearance: 'success' });
+				handleAuthChange({ shoonyaId: values.userId, shoonyaToken: data.accessToken });
 			}
 		} catch (err) {
 			setLoading(false);

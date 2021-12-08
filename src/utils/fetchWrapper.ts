@@ -1,4 +1,4 @@
-export const request = async <TResponse>(url: string, config: RequestInit): Promise<{ data: TResponse; status: number }> => {
+export const request = async <TResponse>(url: string, config: RequestInit): Promise<TResponse> => {
 	try {
 		const response = await fetch(`${process.env.REACT_APP_API_URL}${url}`, {
 			...config,
@@ -6,8 +6,11 @@ export const request = async <TResponse>(url: string, config: RequestInit): Prom
 			headers: { ...(config.method === 'POST' ? { 'content-type': 'application/json' } : {}), ...config.headers },
 		});
 
-		const data = await response.json();
-		return { data, status: response.status };
+		if (response.status !== 200) throw new Error('Something went wrong!');
+		else {
+			const data = await response.json();
+			return data;
+		}
 	} catch (error) {
 		console.log('Something went wrong. \n', error);
 		throw new Error(error as string);

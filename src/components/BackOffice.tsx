@@ -19,12 +19,12 @@ const BackOffice = () => {
 	}, [authDetails]);
 
 	const fetchOrderBook = async () => {
-		const { data, status } = await request('/shoonya-orderbook', {
-			method: 'POST',
-			body: JSON.stringify({ uid: authDetails.shoonyaId, jKey: authDetails.shoonyaToken }),
-		});
-
-		if (status === 401) {
+		try {
+			const data = await request('/shoonya-orderbook', {
+				method: 'POST',
+				body: JSON.stringify({ uid: authDetails.shoonyaId, jKey: authDetails.shoonyaToken }),
+			});
+		} catch (err) {
 			addToast('Authorization failed. Please login again!', { appearance: 'error' });
 			localStorage.clear();
 			handleAuthChange({});
