@@ -1,7 +1,12 @@
 import React from 'react';
+import { Box } from '../styledComponents/Box';
 
 const Calculator = () => {
-	return <div>Calculator</div>;
+	return (
+		<Box>
+			<div>Calculator</div>
+		</Box>
+	);
 };
 
 export default Calculator;
